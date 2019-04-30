@@ -14,7 +14,7 @@ module.exports = app => {
     }
 
     const save = async (req, res) => {
-      // salvando post json dentro de user
+      
       const user = { ...req.body }
       const data_criacao = new Date()
       const data_atualizacao = data_criacao
@@ -23,15 +23,13 @@ module.exports = app => {
       user.data_atualizacao = data_atualizacao
       user.ultimo_login = ultimo_login
   
-       const now = Math.floor(Date.now()/ 1000)
-       // passo os dados da db para o pay load
        const payload = {
            name: user.name,
            email: user.email
        }
        // envio o token para o payload
       const token =  jwt.encode(payload, authSecret)
-      user.token = token
+      user.token_acessoAPI = token
        
       // se for passado um id, salvar dentro de user.id
       if(req.params.id)user.id = req.params.id
@@ -72,7 +70,7 @@ module.exports = app => {
 
            const email = await app.db('users')
           // caso nao estiver vazio, pegar primeiro email encontrado para logar
-          .select('name', 'email', 'telefones','id','data_criacao','data_atualizacao', 'ultimo_login','token')
+          .select('name', 'email', 'telefones','id','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
           .where({email: req.body.email})
           .first()
           // se não encontrar nenhum email transmitir que usuario nao esta cadastrado
@@ -86,7 +84,7 @@ module.exports = app => {
 
     const get = (req, res) => {
         app.db('users')
-            .select('id', 'name', 'email', 'admin')
+            .select('name', 'email', 'telefones','id','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
             .whereNull('deletedAt')
             .then(users => res.json(users))
             .catch(err => res.status(500).send(err))
@@ -94,7 +92,7 @@ module.exports = app => {
 
     const getById = (req, res) => {
         app.db('users')
-            .select('name', 'email', 'telefones','id','data_criacao','data_atualizacao', 'ultimo_login','token')
+            .select('name', 'email', 'telefones','id','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
             .where({ id: req.params.id })
             .whereNull('deletedAt')
             .first()
@@ -104,9 +102,7 @@ module.exports = app => {
 
     const remove = async (req, res) => {
         try {
-            const articles = await app.db('articles')
-                .where({ userId: req.params.id })
-            notExistsOrError(articles, 'Usuário possui artigos.')
+           
 
             const rowsUpdated = await app.db('users')
                 .update({deletedAt: new Date()})

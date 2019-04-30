@@ -16,7 +16,7 @@ consign()
     .then('./schedule')
     .then('./config/routes.js')
     .into(app)
-
-app.listen(3006, () => {
-    console.log('Backend executando...')
+var port = process.env.PORT || 8080
+app.listen(port, () => {
+    
 })

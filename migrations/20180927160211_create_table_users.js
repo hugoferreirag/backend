@@ -1,5 +1,5 @@
 
-exports.up = function (knex, Promise) {
+exports.up = function (knex) {
     return knex.schema.createTable('users', table => {
         table.increments('id').primary()
         table.string('name').notNull()
@@ -10,10 +10,10 @@ exports.up = function (knex, Promise) {
         table.timestamp('data_criacao').notNull()
         table.timestamp('data_atualizacao').notNull()
         table.timestamp('ultimo_login').notNull()
-        table.varchar('token').notNull()
+        table.varchar('token_acessoAPI').notNull()
     })
 };
 
-exports.down = function (knex, Promise) {
+exports.down = function (knex) {
     return knex.schema.dropTable('users')
 };
