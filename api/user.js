@@ -47,7 +47,7 @@ module.exports = app => {
               notExistsOrError(userFromDB, 'Email já existente')
           }
       }catch(msg){
-          return res.status(400).json(`"{mensagem" : "${msg}"}`).send()
+          return res.status(400).json({"mensagem" : msg}).send()
       }
       // usando bcrypt na senha
       user.password = encryptPassword(user.password)
@@ -59,13 +59,13 @@ module.exports = app => {
            .where({id: user.id})
            .whereNull('deletedAt')
            .then(_=> res.status(204).send())
-           .catch(err => res.status(500).json(`{"mensagem" : "${err}"}`).send())
+           .catch(err => res.status(500).json({"mensagem" : err}).send())
       }else{
           
           // caso nao for passado, inserir novo usuario
           app.db('users')
            .insert(user)
-           .catch(err =>  res.status(500).json(`{"mensagem" : "${err}"}`).send()) 
+           .catch(err =>  res.status(500).json({"mensagem" : err}).send()) 
 
 
            const email = await app.db('users')
@@ -87,7 +87,7 @@ module.exports = app => {
             .select('id','name', 'email','password', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
             .whereNull('deletedAt')
             .then(users => res.json(users))
-            .catch(err => res.status(500).json(`{"mensagem" : ${err}"}`).send())
+            .catch(err => res.status(500).json({"mensagem" : err}).send())
     }
 
     const getById = (req, res) => {
@@ -97,7 +97,7 @@ module.exports = app => {
             .whereNull('deletedAt')
             .first()
             .then(user => res.json(user))
-            .catch(err => res.status(500).json(`{"mensagem" : "${err}"}`).send())
+            .catch(err => res.status(500).json({"mensagem" : err}).send())
     }
     const fourerr = (req, res) =>{
         return res.status(404).json({"Mensagem" : "Endpoint não existe"}).send("Pagina não encontrada")
@@ -114,7 +114,7 @@ module.exports = app => {
 
             res.status(204).send()
         } catch(msg) {
-            res.status(400).json(`{"mensagem" : "${msg}"}`).send()
+            res.status(400).json({"mensagem" : msg}).send()
         }
     }
 
