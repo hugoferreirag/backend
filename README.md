@@ -15,10 +15,13 @@ Teste Tech Mahinda
 URLS
 
 SignUP:
-https://backendsky.herokuapp.com/signup // Cadastrese 
+https://backendsky.herokuapp.com/signup // Cadastrese method: POST
 
 SignIn :
-https://backendsky.herokuapp.com/signin // Login
+https://backendsky.herokuapp.com/signin // Login method : POST
 
 Buscar usuario:
-https://backendsky.herokuapp.com/users/:id // busque
+https://backendsky.herokuapp.com/users/:id // busque method : GET
+
+buscar todos usuarios:
+https://backendsky.herokuapp.com/users // method: GET
