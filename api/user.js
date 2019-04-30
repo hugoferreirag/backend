@@ -70,7 +70,7 @@ module.exports = app => {
 
            const email = await app.db('users')
           // caso nao estiver vazio, pegar primeiro email encontrado para logar
-          .select('name', 'email', 'telefones','id','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
+          .select('id','name', 'email', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
           .where({email: req.body.email})
           .first()
           // se não encontrar nenhum email transmitir que usuario nao esta cadastrado
@@ -84,7 +84,7 @@ module.exports = app => {
 
     const get = (req, res) => {
         app.db('users')
-            .select('name', 'email', 'telefones','id','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
+            .select('id','name', 'email', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
             .whereNull('deletedAt')
             .then(users => res.json(users))
             .catch(err => res.status(500).send(err))
@@ -92,7 +92,7 @@ module.exports = app => {
 
     const getById = (req, res) => {
         app.db('users')
-            .select('name', 'email', 'telefones','id','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
+            .select('id','name', 'email', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
             .where({ id: req.params.id })
             .whereNull('deletedAt')
             .first()
