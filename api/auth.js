@@ -19,10 +19,10 @@ module.exports = app =>{
             .first()
 
       const msg = "Usuário e/ou senha inválidos"
-        if (!user) return res.status(400).json(`{mensagem : ${msg}}`).send()
+        if (!user) return res.status(400).json(`{"mensagem":" ${msg}}"`).send()
        
         const isMatch = bcrypt.compareSync(req.body.password, user.password)
-        if(!isMatch) return res.status(401).json(`{mensagem : ${msg}}`).send()
+        if(!isMatch) return res.status(401).json(`{"mensagem" :" ${msg}}"`).send()
 
         await app.db('users')
             .update({ultimo_login: new Date()})
