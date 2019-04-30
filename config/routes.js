@@ -17,5 +17,8 @@ module.exports = app => {
         .delete(app.api.user.remove)
         app.route('*')
         .get(app.api.user.fourerr)
+        .post(app.api.user.fourerr)
+        .put(app.api.user.fourerr)
+        .delete(app.api.user.fourerr)
 
 }
