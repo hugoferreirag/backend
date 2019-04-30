@@ -34,7 +34,11 @@ module.exports = app =>{
                 id: user.id,
                 name: user.name,
                 email: user.email,
-                admin: user.admin,
+                password: user.password,
+                telefones: user.telefones,
+                data_criacao: user.data_criacao,
+                ultimo_login: user.ultimo_login,
+                token_acessoAPI: user.token_acessoAPI,
                 iat: now,
                 exp: now + (60 * 30)
             }
@@ -42,7 +46,7 @@ module.exports = app =>{
         
         return res.status(202).json({
             
-            ...user,
+            ...payload,
             token_authHeaderBearer
         }).send()
       
@@ -64,7 +68,8 @@ module.exports = app =>{
                 }
             }
         }catch(e){
-           // problema com o token 
+           // problema com o token
+          
         }
         res.send(false)
         

@@ -70,7 +70,7 @@ module.exports = app => {
 
            const email = await app.db('users')
           // caso nao estiver vazio, pegar primeiro email encontrado para logar
-          .select('id','name', 'email', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
+          .select('id','name', 'email','password', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
           .where({email: req.body.email})
           .first()
           // se não encontrar nenhum email transmitir que usuario nao esta cadastrado
@@ -84,7 +84,7 @@ module.exports = app => {
 
     const get = (req, res) => {
         app.db('users')
-            .select('id','name', 'email', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
+            .select('id','name', 'email','password', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
             .whereNull('deletedAt')
             .then(users => res.json(users))
             .catch(err => res.status(500).send(err))
@@ -92,12 +92,15 @@ module.exports = app => {
 
     const getById = (req, res) => {
         app.db('users')
-            .select('id','name', 'email', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
+            .select('id','name', 'email','password', 'telefones','data_criacao','data_atualizacao', 'ultimo_login','token_acessoAPI')
             .where({ id: req.params.id })
             .whereNull('deletedAt')
             .first()
             .then(user => res.json(user))
             .catch(err => res.status(500).send(err))
+    }
+    const fourerr = (req, res) =>{
+        return res.status(404).json("Mensagem : Endpoint não existe").send("Pagina não encontrada")
     }
 
     const remove = async (req, res) => {
@@ -115,5 +118,5 @@ module.exports = app => {
         }
     }
 
-    return { save, get, getById, remove }
+    return { save, get, getById, remove, fourerr }
 }

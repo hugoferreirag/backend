@@ -15,5 +15,7 @@ module.exports = app => {
         .put(app.api.user.save)
         .get(app.api.user.getById)
         .delete(app.api.user.remove)
+        app.route('*')
+        .get(app.api.user.fourerr)
 
 }
