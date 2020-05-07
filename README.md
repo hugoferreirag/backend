@@ -2,7 +2,7 @@
 Teste Tech Mahinda
 
 1 - Signup :
- * Sign up requer dados como nome , telefone , email, e insere dados do tipo data de ultimo acesso, criação, e atualização do uzuario atravez de variaveis geradas na função, no banco de dados.
+ * Sign up requer dados como nome , telefone , email, e insere dados do tipo data de ultimo acesso, criação, e atualização do usuário através de variaveis geradas na função, no banco de dados.
  * Gera um token JWT de acesso a API que tambem e inserido no BD
  * Retorna um json com os campos inseridos apois concluir com exito
  2 - SignIn
